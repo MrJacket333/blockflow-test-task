@@ -16,17 +16,15 @@ export class JobRepository extends Repository<Job> {
     return this.save(job);
   }
 
-  async updateJobStatus(id: string, status: JobStatus): Promise<Job> {
+  async updateJobStatus(id: string, status: JobStatus): Promise<void> {
     await this.update(id, { status });
-    return this.findOneBy({ id });
   }
 
   async getJobById(id: string): Promise<Job | null> {
     return this.findOneBy({ id });
   }
 
-  async setJobProgress(id: string, progress: number): Promise<Job> {
+  async setJobProgress(id: string, progress: number): Promise<void> {
     await this.update(id, { progress });
-    return this.findOneBy({ id });
   }
 }
