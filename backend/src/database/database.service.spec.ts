@@ -55,11 +55,8 @@ describe('DatabaseService', () => {
 
   describe('updateJobStatus', () => {
     it('should update job status', async () => {
-      await service.updateJobStatus(mockJob.id, JobStatus.DONE);
-      expect(repo.updateJobStatus).toHaveBeenCalledWith(
-        mockJob.id,
-        JobStatus.DONE,
-      );
+      await service.updateJobStatus(mockJob.id, 'done');
+      expect(repo.updateJobStatus).toHaveBeenCalledWith(mockJob.id, 'done');
     });
   });
 

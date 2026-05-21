@@ -75,6 +75,13 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "moduleNameMapper": {
+      "^@shared/(.*)$": "<rootDir>/shared/$1",
+      "^@database/(.*)$": "<rootDir>/database/$1",
+      "^@jobs-queue/(.*)$": "<rootDir>/jobs-queue/$1",
+      "^@rest/(.*)$": "<rootDir>/rest/$1",
+      "^@websocket/(.*)$": "<rootDir>/websocket/$1"
+    },
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],

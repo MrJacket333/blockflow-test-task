@@ -21,6 +21,11 @@ export class DatabaseService {
     await this.repo.updateJobStatus(jobId, status);
   }
 
+  public async finishJob(jobId: string): Promise<void> {
+    await this.setJobProgress(jobId, 100);
+    await this.updateJobStatus(jobId, 'done');
+  }
+
   public async setJobProgress(jobId: string, progress: number) {
     await this.repo.setJobProgress(jobId, progress);
   }

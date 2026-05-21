@@ -1,10 +1,20 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { DatabaseService } from '@database/database.service';
+import { from, concatMap, lastValueFrom, tap } from 'rxjs';
+import { Inject } from '@nestjs/common';
+import { PIPELINE_INJECTION_TOKEN } from '@shared/constants';
+import { JobsQueueHandler } from './jobs-queue-handler.interface';
+import { WebsocketAdapter } from '@websocket/websocket.adapter';
 
 @Processor('jobs')
 export class JobsQueueProcessor extends WorkerHost {
-  constructor(private readonly databaseService: DatabaseService) {
+  constructor(
+    @Inject() private readonly databaseService: DatabaseService,
+    @Inject(PIPELINE_INJECTION_TOKEN)
+    private readonly queueHandlers: JobsQueueHandler[],
+    @Inject() private readonly websocketAdapter: WebsocketAdapter,
+  ) {
     super();
   }
 
@@ -13,16 +23,22 @@ export class JobsQueueProcessor extends WorkerHost {
 
     await this.databaseService.updateJobStatus(id, 'processing');
 
-    for (let progress = 0; progress <= 100; progress += 10) {
-      await this.databaseService.setJobProgress(id, progress);
-      await job.updateProgress(progress);
-      await this.sleep(1000);
-    }
-
-    await this.databaseService.updateJobStatus(id, 'done');
-  }
-
-  private sleep(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    await lastValueFrom(
+      from(this.queueHandlers).pipe(
+        concatMap((handler) =>
+          from(handler.handleJob(id)).pipe(
+            concatMap(() => from(this.databaseService.getJobById(id))),
+            tap((job) => {
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+              this.websocketAdapter.emitToJobClients(id, 'jobProgress', {
+                jobId: id,
+                status: job!.status,
+                progress: job!.progress,
+              });
+            }),
+          ),
+        ),
+      ),
+    );
   }
 }

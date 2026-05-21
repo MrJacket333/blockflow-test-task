@@ -8,10 +8,11 @@ import {
 } from '@nestjs/websockets';
 import { Inject } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
-import { Queue, QueueEvents } from 'bullmq';
+import { Queue, QueueEvents, JobProgress } from 'bullmq';
 import { InjectQueue } from '@nestjs/bullmq';
 import { DatabaseService } from '@database/database.service';
 import { JobDto } from '@database/dto/Job.dto';
+import { WebsocketAdapter } from './websocket.adapter';
 import { bullConfig } from '../bull.config';
 
 @WebSocketGateway({
@@ -23,43 +24,48 @@ export class JobsGateway
   @WebSocketServer()
   server: Server;
 
-  private jobClients = new Map<string, Set<string>>();
   private queueEvents: QueueEvents;
 
   constructor(
     @Inject() private databaseService: DatabaseService,
     @InjectQueue('jobs') private jobsQueue: Queue,
+    @Inject() private readonly websocketAdapter: WebsocketAdapter,
   ) {}
 
   afterInit() {
+    this.websocketAdapter.setServer(this.server);
+
     this.queueEvents = new QueueEvents('jobs', bullConfig);
 
     this.queueEvents.on(
       'progress',
-      ({ jobId, data }: { jobId: string; data: number | object }) => {
+      ({ jobId, data }: { jobId: string; data: JobProgress }) => {
         const progress = typeof data === 'number' ? data : 0;
-        this.emitToJobClients(jobId, 'jobProgress', { jobId, progress });
+        this.websocketAdapter.emitToJobClients(jobId, 'jobProgress', {
+          jobId,
+          progress,
+        });
       },
     );
 
     this.queueEvents.on('completed', ({ jobId }: { jobId: string }) => {
-      this.emitToJobClients(jobId, 'jobCompleted', { jobId });
-      this.jobClients.delete(jobId);
+      this.websocketAdapter.emitToJobClients(jobId, 'jobCompleted', { jobId });
+      this.websocketAdapter.removeJobClients(jobId);
     });
 
     this.queueEvents.on(
       'failed',
       ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-        this.emitToJobClients(jobId, 'jobFailed', {
+        this.websocketAdapter.emitToJobClients(jobId, 'jobFailed', {
           jobId,
           error: failedReason,
         });
-        this.jobClients.delete(jobId);
+        this.websocketAdapter.removeJobClients(jobId);
       },
     );
 
     this.queueEvents.on('active', ({ jobId }: { jobId: string }) => {
-      this.emitToJobClients(jobId, 'jobStatus', {
+      this.websocketAdapter.emitToJobClients(jobId, 'jobStatus', {
         jobId,
         status: 'processing',
       });
@@ -73,14 +79,7 @@ export class JobsGateway
   handleConnection() {}
 
   handleDisconnect(client: Socket) {
-    for (const [jobId, sockets] of this.jobClients.entries()) {
-      if (sockets.has(client.id)) {
-        sockets.delete(client.id);
-        if (sockets.size === 0) {
-          this.jobClients.delete(jobId);
-        }
-      }
-    }
+    this.websocketAdapter.removeClient(client.id);
   }
 
   @SubscribeMessage('initJob')
@@ -96,23 +95,8 @@ export class JobsGateway
       progress: createdJob.progress,
     });
 
-    const clients = this.jobClients.get(createdJob.id) ?? new Set();
-    clients.add(client.id);
-    this.jobClients.set(createdJob.id, clients);
+    this.websocketAdapter.addClient(createdJob.id, client.id);
 
     return createdJob;
-  }
-
-  private emitToJobClients(
-    jobId: string,
-    event: string,
-    data: Record<string, unknown>,
-  ) {
-    const sockets = this.jobClients.get(jobId);
-    if (sockets) {
-      sockets.forEach((socketId) => {
-        this.server.to(socketId).emit(event, data);
-      });
-    }
   }
 }

@@ -27,7 +27,8 @@
       "@shared/*": ["src/shared/*"],
       "@database/*": ["src/database/*"],
       "@jobs-queue/*": ["src/jobs-queue/*"],
-      "@rest/*": ["src/rest/*"]
+      "@rest/*": ["src/rest/*"],
+      "@websocket/*": ["src/websocket/*"]
     }
   }
 }

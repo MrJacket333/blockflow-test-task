@@ -21,5 +21,7 @@ export class RestController {
   }
 
   @Post()
-  public async createNewJob(): Promise<JobDto> {}
+  public async createNewJob(): Promise<JobDto> {
+    return this.jobsQueueService.initJobsQueue();
+  }
 }

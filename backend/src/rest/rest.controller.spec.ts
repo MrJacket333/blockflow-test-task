@@ -1,36 +1,35 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RestController } from './rest.controller';
-import { DatabaseService } from '@database/database.service';
-import { JobStatus } from '@shared/job-status.types';
-import { Job } from '@database/job.entity';
+import { JobsQueueService } from '@jobs-queue/jobs-queue.service';
+import { JobDto } from '@database/dto/Job.dto';
 
-const mockJob: Job = {
+const mockJobDto: JobDto = {
   id: '550e8400-e29b-41d4-a716-446655440000',
-  status: JobStatus.QUEUED,
+  status: 'queued',
   progress: 0,
   createdAt: new Date(),
 };
 
 describe('RestController', () => {
   let controller: RestController;
-  let databaseService: jest.Mocked<DatabaseService>;
+  let jobsQueueService: jest.Mocked<JobsQueueService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [RestController],
       providers: [
         {
-          provide: DatabaseService,
+          provide: JobsQueueService,
           useValue: {
-            getJobById: jest.fn().mockResolvedValue(mockJob),
-            createNewJob: jest.fn().mockResolvedValue(mockJob),
+            getJobById: jest.fn().mockResolvedValue(mockJobDto),
+            initJobsQueue: jest.fn().mockResolvedValue(mockJobDto),
           },
         },
       ],
     }).compile();
 
     controller = module.get<RestController>(RestController);
-    databaseService = module.get(DatabaseService);
+    jobsQueueService = module.get(JobsQueueService);
   });
 
   it('should be defined', () => {
@@ -39,17 +38,17 @@ describe('RestController', () => {
 
   describe('getJobById', () => {
     it('should return a job by id', async () => {
-      const result = await controller.getJobById(mockJob.id);
-      expect(databaseService.getJobById).toHaveBeenCalledWith(mockJob.id);
-      expect(result).toEqual(mockJob);
+      const result = await controller.getJobById(mockJobDto.id);
+      expect(jobsQueueService.getJobById).toHaveBeenCalledWith(mockJobDto.id);
+      expect(result).toEqual(mockJobDto);
     });
   });
 
   describe('createNewJob', () => {
     it('should create and return a new job', async () => {
       const result = await controller.createNewJob();
-      expect(databaseService.createNewJob).toHaveBeenCalled();
-      expect(result).toEqual(mockJob);
+      expect(jobsQueueService.initJobsQueue).toHaveBeenCalled();
+      expect(result).toEqual(mockJobDto);
     });
   });
 });
