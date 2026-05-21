@@ -8,11 +8,11 @@ type SelectOption = {
 };
 
 const options: SelectOption[] = [
-  { id: '1', emoji: '😌', label: 'wish1' },
-  { id: '2', emoji: '😴', label: 'wish2' },
-  { id: '3', emoji: '⚖️', label: 'wish3' },
-  { id: '4', emoji: '💚', label: 'wish4' },
-  { id: '5', emoji: '😊', label: 'wish5' },
+  { id: '1', emoji: '😌', label: 'Become stronger' },
+  { id: '2', emoji: '😴', label: 'Become smarter' },
+  { id: '3', emoji: '⚖️', label: 'Become popular' },
+  { id: '4', emoji: '💚', label: 'Become rich' },
+  { id: '5', emoji: '😊', label: 'Become happier' },
 ];
 
 export default function MainWishSelectionPage() {
