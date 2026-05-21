@@ -7,6 +7,7 @@ import { QueuesModule } from './queues/queues.module';
 import { WebsocketModule } from './websocket/websocket.module';
 import { RestModule } from './rest/rest.module';
 import { BullModule } from '@nestjs/bullmq';
+import { JobsQueueModule } from './jobs-queue/jobs-queue.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { BullModule } from '@nestjs/bullmq';
     QueuesModule,
     WebsocketModule,
     RestModule,
+    JobsQueueModule,
   ],
 })
 export class AppModule {}

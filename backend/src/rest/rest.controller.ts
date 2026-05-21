@@ -19,6 +19,6 @@ export class RestController {
 
   @Post()
   public async createNewJob() {
-    return this.databaseService.createNewJob();
+    return this.databaseService.initNewJob();
   }
 }
