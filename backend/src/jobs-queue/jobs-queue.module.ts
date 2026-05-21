@@ -20,6 +20,9 @@ import { ThirdStepHandler } from './handlers/ThirdStepHandler';
   providers: [
     JobsQueueService,
     JobsQueueProcessor,
+    FirstStepHandler,
+    SecondStepHandler,
+    ThirdStepHandler,
     {
       provide: PIPELINE_INJECTION_TOKEN,
       useFactory: (

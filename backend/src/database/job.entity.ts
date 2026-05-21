@@ -13,6 +13,8 @@ export class Job {
 
   @Column({
     type: 'enum',
+    enumName: 'JobStatus',
+    enum: ['queued', 'processing', 'done', 'failed'],
     default: 'queued',
   })
   status: JobStatus;
