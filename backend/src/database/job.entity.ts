@@ -4,13 +4,7 @@ import {
   Column,
   CreateDateColumn,
 } from 'typeorm';
-
-export enum JobStatus {
-  QUEUED = 'queued',
-  PROCESSING = 'processing',
-  DONE = 'done',
-  FAILED = 'failed',
-}
+import { type JobStatus } from '@shared/job-status.enum';
 
 @Entity('jobs')
 export class Job {
@@ -19,8 +13,7 @@ export class Job {
 
   @Column({
     type: 'enum',
-    enum: JobStatus,
-    default: JobStatus.QUEUED,
+    default: 'queued',
   })
   status: JobStatus;
 

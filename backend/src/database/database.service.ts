@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { JobRepository } from './job.repository';
-import { Job, JobStatus } from './job.entity';
+import { JobStatus } from '@shared/job-status.enum';
+import { Job } from './job.entity';
 import { Queue } from 'bullmq';
 import { InjectQueue } from '@nestjs/bullmq';
 

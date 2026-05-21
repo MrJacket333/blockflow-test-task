@@ -21,6 +21,13 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["src/shared/*"],
+      "@database/*": ["src/database/*"],
+      "@jobs-queue/*": ["src/jobs-queue/*"],
+      "@rest/*": ["src/rest/*"]
+    }
   }
 }

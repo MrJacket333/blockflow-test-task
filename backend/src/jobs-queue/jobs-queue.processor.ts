@@ -1,5 +1,1 @@
-
-
-export class JobsQueueProcessor {
-
-}
+export class JobsQueueProcessor {}

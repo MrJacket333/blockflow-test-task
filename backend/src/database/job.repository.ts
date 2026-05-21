@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
-import { Job, JobStatus } from './job.entity';
+import { JobStatus } from '@shared/job-status.enum';
+import { Job } from './job.entity';
 
 @Injectable()
 export class JobRepository extends Repository<Job> {
