@@ -1,1 +1,0 @@
-{"version":3,"file":"bull.config.js","sourceRoot":"","sources":["../src/bull.config.ts"],"names":[],"mappings":";;;AAEa,QAAA,UAAU,GAAsB;IAC3C,KAAK,EAAE;QACL,IAAI,EAAE,OAAO,CAAC,GAAG,CAAC,UAAU,IAAI,WAAW;QAC3C,IAAI,EAAE,QAAQ,CAAC,OAAO,CAAC,GAAG,CAAC,UAAU,IAAI,MAAM,CAAC;QAChD,QAAQ,EAAE,OAAO,CAAC,GAAG,CAAC,cAAc;KACrC;CACF,CAAC"}

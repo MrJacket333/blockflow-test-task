@@ -1,5 +1,5 @@
 import { Job } from '@database/job.entity';
-import { JobStatus } from '@shared/job-status.enum';
+import { JobStatus } from '@shared/job-status.types';
 
 export class JobDto {
   id: string;

@@ -4,7 +4,7 @@ import {
   Column,
   CreateDateColumn,
 } from 'typeorm';
-import { type JobStatus } from '@shared/job-status.enum';
+import { type JobStatus } from '@shared/job-status.types';
 
 @Entity('jobs')
 export class Job {

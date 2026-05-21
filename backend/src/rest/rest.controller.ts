@@ -6,24 +6,20 @@ import {
   ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
-import { DatabaseService } from '@database/database.service';
-import { JobDto } from './dto/Job.dto';
+import { JobDto } from '../database/dto/Job.dto';
+import { JobsQueueService } from '@jobs-queue/jobs-queue.service';
 
 @Controller('jobs')
 export class RestController {
-  constructor(@Inject() private databaseService: DatabaseService) {}
+  constructor(@Inject() private jobsQueueService: JobsQueueService) {}
 
   @Get(':id')
   public async getJobById(
     @Param('id', ParseUUIDPipe) jobId: string,
   ): Promise<JobDto> {
-    const job = await this.databaseService.getJobById(jobId);
-    return JobDto.fromEntity(job);
+    return this.jobsQueueService.getJobById(jobId);
   }
 
   @Post()
-  public async createNewJob(): Promise<JobDto> {
-    const job = await this.databaseService.initNewJob();
-    return JobDto.fromEntity(job);
-  }
+  public async createNewJob(): Promise<JobDto> {}
 }

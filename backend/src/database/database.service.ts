@@ -1,21 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { JobRepository } from './job.repository';
-import { JobStatus } from '@shared/job-status.enum';
+import { JobStatus } from '@shared/job-status.types';
 import { Job } from './job.entity';
-import { Queue } from 'bullmq';
-import { InjectQueue } from '@nestjs/bullmq';
+import { JobDto } from './dto/Job.dto';
 
 @Injectable()
 export class DatabaseService {
-  constructor(
-    @Inject() private repo: JobRepository,
-    @InjectQueue('jobs') private jobsQueue: Queue,
-  ) {}
+  constructor(@Inject() private repo: JobRepository) {}
 
   public async initNewJob() {
-    const savedJob = this.repo.save({});
-    await this.jobsQueue.add('step_1', savedJob);
-    return savedJob;
+    const savedJob = await this.repo.save({});
+    return savedJob ? JobDto.fromEntity(savedJob) : null;
   }
 
   public async getJobById(jobId: string): Promise<Job | null> {

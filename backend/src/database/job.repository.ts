@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
-import { JobStatus } from '@shared/job-status.enum';
+import { JobStatus } from '@shared/job-status.types';
 import { Job } from './job.entity';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class JobRepository extends Repository<Job> {
 
   async createJob(): Promise<Job> {
     const job = this.create({
-      status: JobStatus.QUEUED,
+      status: 'queued',
       progress: 0,
     });
     return this.save(job);

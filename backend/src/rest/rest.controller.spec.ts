@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RestController } from './rest.controller';
 import { DatabaseService } from '@database/database.service';
-import { JobStatus } from '@shared/job-status.enum';
+import { JobStatus } from '@shared/job-status.types';
 import { Job } from '@database/job.entity';
 
 const mockJob: Job = {

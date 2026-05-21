@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DatabaseService } from './database.service';
 import { JobRepository } from './job.repository';
-import { JobStatus } from '@shared/job-status.enum';
+import { JobStatus } from '@shared/job-status.types';
 import { Job } from './job.entity';
 
 const mockJob: Job = {
   id: '550e8400-e29b-41d4-a716-446655440000',
-  status: JobStatus.QUEUED,
+  status: 'queued',
   progress: 0,
   createdAt: new Date(),
 };
@@ -37,14 +37,6 @@ describe('DatabaseService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-  });
-
-  describe('createNewJob', () => {
-    it('should save a new job', async () => {
-      const result = await service.createNewJob();
-      expect(repo.save).toHaveBeenCalledWith({});
-      expect(result).toEqual(mockJob);
-    });
   });
 
   describe('getJobById', () => {
