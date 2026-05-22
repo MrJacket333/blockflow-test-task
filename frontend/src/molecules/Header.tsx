@@ -7,7 +7,7 @@ type HeaderProps = {
 
 export default function Header({ progress, onBack }: HeaderProps) {
   return (
-    <div className="bg-white border-b border-[#dad9e0] flex gap-10 items-center px-[120px] py-3 w-full">
+    <div className="bg-white border-b border-[#dad9e0] flex gap-10 items-center pl-[120px] py-3 w-full">
       <div className="flex items-center shrink-0">
         <button
           onClick={onBack}
@@ -19,9 +19,7 @@ export default function Header({ progress, onBack }: HeaderProps) {
           </svg>
         </button>
       </div>
-      <div className="flex flex-col items-start w-[1024px]">
-        <ProgressBar progress={progress} className="w-full" />
-      </div>
+      <ProgressBar progress={progress} className="flex-1 mr-[120px]" />
     </div>
   );
 }

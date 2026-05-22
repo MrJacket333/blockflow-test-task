@@ -40,5 +40,7 @@ export class JobsQueueProcessor extends WorkerHost {
         ),
       ),
     );
+
+    this.websocketAdapter.emitToJobClients(id, 'jobCompleted', { jobId: id });
   }
 }

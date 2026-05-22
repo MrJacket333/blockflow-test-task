@@ -10,6 +10,9 @@ export default defineConfig({
         target: 'http://localhost:3000',
         ws: true,
       },
+      '/jobs': {
+        target: 'http://localhost:3000',
+      },
     },
   },
 })

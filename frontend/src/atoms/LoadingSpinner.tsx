@@ -1,11 +1,16 @@
 interface LoadingSpinnerProps {
-  progress: number;
+  progress?: number;
+  indeterminate?: boolean;
+  showPercentage?: boolean;
 }
 
-export default function LoadingSpinner({ progress }: LoadingSpinnerProps) {
+export default function LoadingSpinner({ progress, indeterminate = false, showPercentage = true }: LoadingSpinnerProps) {
   return (
     <div className="relative size-[220px]">
-      <svg className="size-full -rotate-90" viewBox="0 0 220 220">
+      <svg
+        className={`size-full ${indeterminate ? 'spinner-animation' : '-rotate-90'}`}
+        viewBox="0 0 220 220"
+      >
         <circle
           cx="110"
           cy="110"
@@ -22,9 +27,9 @@ export default function LoadingSpinner({ progress }: LoadingSpinnerProps) {
           stroke="url(#gradient)"
           strokeWidth="8"
           strokeLinecap="round"
-          strokeDasharray={`${2 * Math.PI * 100}`}
-          strokeDashoffset={`${2 * Math.PI * 100 * (1 - progress / 100)}`}
-          style={{ transition: 'stroke-dashoffset 0.3s ease' }}
+          strokeDasharray={indeterminate ? '314' : `${2 * Math.PI * 100}`}
+          strokeDashoffset={indeterminate ? '0' : `${2 * Math.PI * 100 * (1 - (progress ?? 0) / 100)}`}
+          style={indeterminate ? undefined : { transition: 'stroke-dashoffset 0.3s ease' }}
         />
         <defs>
           <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -33,12 +38,14 @@ export default function LoadingSpinner({ progress }: LoadingSpinnerProps) {
           </linearGradient>
         </defs>
       </svg>
-      <p
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[56px] font-normal leading-[1.1] text-[#099678] text-center whitespace-nowrap"
-        style={{ fontFamily: 'Geologica, sans-serif' }}
-      >
-        {progress}%
-      </p>
+      {!indeterminate && showPercentage && progress !== undefined && (
+        <p
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[56px] font-normal leading-[1.1] text-[#099678] text-center whitespace-nowrap"
+          style={{ fontFamily: 'Geologica, sans-serif' }}
+        >
+          {progress}%
+        </p>
+      )}
     </div>
   );
 }

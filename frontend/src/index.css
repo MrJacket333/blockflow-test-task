@@ -98,6 +98,35 @@ p {
   margin: 0;
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 628;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 314, 628;
+    stroke-dashoffset: -157;
+  }
+  100% {
+    stroke-dasharray: 314, 628;
+    stroke-dashoffset: -628;
+  }
+}
+
+.spinner-animation {
+  animation: spin 2s linear infinite;
+}
+
+.spinner-animation circle:nth-child(2) {
+  animation: dash 1.5s ease-in-out infinite;
+}
+
 code,
 .counter {
   font-family: var(--mono);
