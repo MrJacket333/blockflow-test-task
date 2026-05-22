@@ -1,4 +1,4 @@
-import ProgressBar from './ProgressBar';
+import ProgressBar from '../molecules/ProgressBar';
 
 type HeaderProps = {
   progress?: number;

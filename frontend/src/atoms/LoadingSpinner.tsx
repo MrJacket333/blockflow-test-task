@@ -6,7 +6,6 @@ export default function LoadingSpinner({ progress }: LoadingSpinnerProps) {
   return (
     <div className="relative size-[220px]">
       <svg className="size-full -rotate-90" viewBox="0 0 220 220">
-        {/* Background circle */}
         <circle
           cx="110"
           cy="110"
@@ -15,7 +14,6 @@ export default function LoadingSpinner({ progress }: LoadingSpinnerProps) {
           stroke="#f1f0f6"
           strokeWidth="8"
         />
-        {/* Progress circle */}
         <circle
           cx="110"
           cy="110"
