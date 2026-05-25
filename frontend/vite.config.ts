@@ -15,13 +15,17 @@ export default defineConfig({
     },
   },
   server: {
+    host: true,
+    watch: {
+      usePolling: true,
+    },
     proxy: {
       '/socket.io': {
-        target: 'http://localhost:3000',
+        target: process.env.VITE_API_HOST || 'http://localhost:3000',
         ws: true,
       },
       '/jobs': {
-        target: 'http://localhost:3000',
+        target: process.env.VITE_API_HOST || 'http://localhost:3000',
       },
     },
   },
