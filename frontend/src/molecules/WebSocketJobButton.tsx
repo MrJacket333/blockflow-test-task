@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import Button from '@atoms/Button';
 
@@ -10,12 +10,17 @@ interface WebSocketJobButtonProps {
 
 export default function WebSocketJobButton({ disabled, onProgress, onStatusChange }: WebSocketJobButtonProps) {
   const socketRef = useRef<Socket | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const runWebSocketJob = useCallback(() => {
+    setError(null);
     onStatusChange({ running: true, isPolling: false });
     onProgress(0);
 
-    const socket = io({ transports: ['websocket'] });
+    const socket = io({
+      transports: ['websocket'],
+      reconnection: false,
+    });
 
     socketRef.current = socket;
 
@@ -38,6 +43,12 @@ export default function WebSocketJobButton({ disabled, onProgress, onStatusChang
       socket.disconnect();
     });
 
+    socket.on('connect_error', (err) => {
+      console.error('WebSocket connection error:', err.message);
+      setError(err.message);
+      onStatusChange({ running: false, isPolling: false });
+    });
+
     socket.on('disconnect', () => {
       socketRef.current = null;
     });
@@ -52,6 +63,9 @@ export default function WebSocketJobButton({ disabled, onProgress, onStatusChang
   }, []);
 
   return (
-    <Button onClick={runWebSocketJob} className="py-4 w-[220px]" disabled={disabled}>Run WebSocket job</Button>
+    <div className="flex flex-col items-center gap-2">
+      <Button onClick={runWebSocketJob} className="py-4 w-[220px]" disabled={disabled}>Run WebSocket job</Button>
+      {error && <p className="text-red-500 text-sm">Connection failed: {error}</p>}
+    </div>
   );
 }
