@@ -20,9 +20,7 @@ export default function JobProcessingTemplate() {
     if (pollIntervalRef.current) {
       clearInterval(pollIntervalRef.current);
       pollIntervalRef.current = null;
-    }
-    setProgress(-1);
-    setIsPolling(false);
+    }    
     navigate('/mainwish');
   }, [navigate]);
 
