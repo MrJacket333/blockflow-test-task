@@ -5,9 +5,16 @@ services:
     restart: unless-stopped
     ports:
       - "5432:5432"
-    env_file: ./backend/.env
+    env_file: ./backend/.env.development
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - blockflow-network
 
   redis:
     image: redis:7-alpine
@@ -17,6 +24,13 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - blockflow-network
 
   backend:
     build: ./backend
@@ -24,20 +38,30 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-    env_file: ./backend/.env
+    env_file: ./backend/.env.development
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - blockflow-network
 
   frontend:
     build: ./frontend
     container_name: blockflow-frontend
     restart: unless-stopped
     ports:
-      - "5173:80"
+      - "80:80"
     depends_on:
       - backend
+    networks:
+      - blockflow-network
 
 volumes:
   postgres_data:
   redis_data:
+
+networks:
+  blockflow-network:
+    driver: bridge

@@ -1,4 +1,4 @@
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import MainWishPage from '@pages/MainWishPage';
 import WeightInputPage from '@pages/WeightInputPage';
 import JobProcessingPage from '@pages/JobProcessingPage';
