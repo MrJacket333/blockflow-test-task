@@ -3,6 +3,14 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "es2023",
     "lib": ["ES2023", "DOM"],
+    "baseUrl": ".",
+    "paths": {
+      "@atoms/*": ["./src/atoms/*"],
+      "@molecules/*": ["./src/molecules/*"],
+      "@organisms/*": ["./src/organisms/*"],
+      "@templates/*": ["./src/templates/*"],
+      "@pages/*": ["./src/pages/*"]
+    },
     "module": "esnext",
     "types": ["vite/client"],
     "skipLibCheck": true,

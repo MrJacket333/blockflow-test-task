@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import MainWishSelectionTemplate from '../templates/MainWishSelectionTemplate';
+import MainWishSelectionTemplate from '@templates/MainWishSelectionTemplate';
 
 export default function MainWishPage() {
   const navigate = useNavigate();

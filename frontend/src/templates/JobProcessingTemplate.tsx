@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import LoadingSpinner from '../atoms/LoadingSpinner';
-import JobButtons from '../organisms/JobButtons';
-import ResetJobButton from '../molecules/ResetJobButton';
+import LoadingSpinner from '@atoms/LoadingSpinner';
+import JobButtons from '@organisms/JobButtons';
+import ResetJobButton from '@molecules/ResetJobButton';
 
 export default function JobProcessingTemplate() {
   const [progress, setProgress] = useState(-1);

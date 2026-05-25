@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import Button from '../atoms/Button';
+import Button from '@atoms/Button';
 
 interface PollingJobButtonProps {
   disabled: boolean;

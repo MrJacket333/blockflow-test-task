@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
-import Button from '../atoms/Button';
+import Button from '@atoms/Button';
 
 interface WebSocketJobButtonProps {
   disabled: boolean;

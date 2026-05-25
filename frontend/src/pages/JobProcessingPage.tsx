@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import Header from '../molecules/Header';
-import JobProcessingTemplate from '../templates/JobProcessingTemplate';
+import Header from '@molecules/Header';
+import JobProcessingTemplate from '@templates/JobProcessingTemplate';
 
 export default function JobProcessingPage() {
   const navigate = useNavigate();

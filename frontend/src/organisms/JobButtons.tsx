@@ -1,5 +1,5 @@
-import WebSocketJobButton from '../molecules/WebSocketJobButton';
-import PollingJobButton from '../molecules/PollingJobButton';
+import WebSocketJobButton from '@molecules/WebSocketJobButton';
+import PollingJobButton from '@molecules/PollingJobButton';
 
 interface JobButtonsProps {
   running: boolean;

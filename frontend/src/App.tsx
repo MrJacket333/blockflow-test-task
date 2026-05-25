@@ -1,7 +1,7 @@
 import { Routes, Route, NavLink } from 'react-router-dom';
-import MainWishPage from './Pages/MainWishPage';
-import WeightInputPage from './Pages/WeightInputPage';
-import JobProcessingPage from './Pages/JobProcessingPage';
+import MainWishPage from '@pages/MainWishPage';
+import WeightInputPage from '@pages/WeightInputPage';
+import JobProcessingPage from '@pages/JobProcessingPage';
 
 function App() {
   return (

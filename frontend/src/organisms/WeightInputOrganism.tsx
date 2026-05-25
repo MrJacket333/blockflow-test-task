@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../atoms/Button';
-import Input from '../atoms/Input';
-import Select from '../atoms/Select';
+import Button from '@atoms/Button';
+import Input from '@atoms/Input';
+import Select from '@atoms/Select';
 
 type Unit = 'lbs' | 'kg';
 

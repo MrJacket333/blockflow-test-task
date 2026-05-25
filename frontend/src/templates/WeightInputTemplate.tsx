@@ -1,5 +1,5 @@
-import Header from '../molecules/Header';
-import WeightInputOrganism from '../organisms/WeightInputOrganism';
+import Header from '@molecules/Header';
+import WeightInputOrganism from '@organisms/WeightInputOrganism';
 
 type WeightInputTemplateProps = {
   progress?: number;

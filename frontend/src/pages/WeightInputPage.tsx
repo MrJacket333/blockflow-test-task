@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import WeightInputTemplate from '../templates/WeightInputTemplate';
+import WeightInputTemplate from '@templates/WeightInputTemplate';
 
 export default function WeightInputPage() {
   const navigate = useNavigate();

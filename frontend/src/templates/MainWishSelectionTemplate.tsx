@@ -1,5 +1,5 @@
-import Header from '../molecules/Header';
-import MainWishSelectionOrganism from '../organisms/MainWishSelectionOrganism';
+import Header from '@molecules/Header';
+import MainWishSelectionOrganism from '@organisms/MainWishSelectionOrganism';
 
 type MainWishSelectionTemplateProps = {
   progress?: number;
