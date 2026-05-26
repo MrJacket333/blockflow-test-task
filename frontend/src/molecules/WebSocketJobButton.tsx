@@ -17,7 +17,7 @@ export default function WebSocketJobButton({ disabled, onProgress, onStatusChang
     onStatusChange({ running: true, isPolling: false });
     onProgress(0);
 
-    const socket = io({
+    const socket = io(import.meta.env.VITE_BACKEND_URL, {
       transports: ['websocket'],
       reconnection: false,
     });

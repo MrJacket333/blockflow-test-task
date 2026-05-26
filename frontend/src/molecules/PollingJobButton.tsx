@@ -15,12 +15,12 @@ export default function PollingJobButton({ disabled, onProgress, onStatusChange 
     onProgress(0);
 
     try {
-      const res = await fetch('/jobs', { method: 'POST' });
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/jobs`, { method: 'POST' });
       const { id } = await res.json();
 
       pollIntervalRef.current = setInterval(async () => {
         try {
-          const pollRes = await fetch(`/jobs/${id}`);
+          const pollRes = await fetch(`${import.meta.env.VITE_BACKEND_URL}/jobs/${id}`);
           const data = await pollRes.json();
 
           onProgress(data.progress);
