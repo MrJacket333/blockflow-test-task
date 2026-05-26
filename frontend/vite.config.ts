@@ -21,11 +21,11 @@ export default defineConfig({
     },
     proxy: {
       '/socket.io': {
-        target: process.env.VITE_API_HOST || 'http://localhost:3000',
+        target: process.env.PROXY_TARGET || 'http://localhost:3000',
         ws: true,
       },
       '/jobs': {
-        target: process.env.VITE_API_HOST || 'http://localhost:3000',
+        target: process.env.PROXY_TARGET || 'http://localhost:3000',
       },
     },
   },
