@@ -16,7 +16,7 @@ export default function WeightInputOrganism() {
   const isValid = weight !== '' && Number(weight) >= minWeight && Number(weight) <= maxWeight;
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-between px-[120px] py-14 w-full">
+    <div className="flex flex-1 flex-col items-center px-[120px] py-14 w-full">
       <div className="flex flex-col gap-16 items-center w-[792px]">
         <div className="flex flex-col items-center w-full">
           <h1
@@ -27,21 +27,24 @@ export default function WeightInputOrganism() {
           </h1>
         </div>
 
-        <WeightInput
-          unit={unit}
-          weight={weight}
-          minWeight={minWeight}
-          maxWeight={maxWeight}
-          isValid={isValid}
-          onUnitChange={setUnit}
-          onWeightChange={setWeight}
-        />
+        <div className="flex flex-col items-center">
+          <WeightInput
+            unit={unit}
+            weight={weight}
+            minWeight={minWeight}
+            maxWeight={maxWeight}
+            isValid={isValid}
+            onUnitChange={setUnit}
+            onWeightChange={setWeight}
+          />
 
+          <div className="mt-4">
+            <Button disabled={!isValid} onClick={() => navigate('/jobs')} className="w-[182px]">
+              Continue
+            </Button>
+          </div>
+        </div>
       </div>
-
-      <Button disabled={!isValid} onClick={() => navigate('/jobs')} className="w-[182px]">
-        Continue
-      </Button>
     </div>
   );
 }

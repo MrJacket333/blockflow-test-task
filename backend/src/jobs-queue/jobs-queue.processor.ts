@@ -27,13 +27,11 @@ export class JobsQueueProcessor extends WorkerHost {
       from(this.queueHandlers).pipe(
         concatMap((handler) =>
           from(handler.handleJob(id)).pipe(
-            concatMap(() => from(this.databaseService.getJobById(id))),
             tap((job) => {
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
               this.websocketAdapter.emitToJobClients(id, 'jobProgress', {
                 jobId: id,
-                status: job!.status,
-                progress: job!.progress,
+                status: job.status,
+                progress: job.progress,
               });
             }),
           ),

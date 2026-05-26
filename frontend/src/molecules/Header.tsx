@@ -7,11 +7,11 @@ type HeaderProps = {
 
 export default function Header({ progress, onBack }: HeaderProps) {
   return (
-    <div className="bg-white border-b border-[#dad9e0] flex gap-10 items-center pl-[120px] py-3 w-full">
+    <div className="bg-white border-b border-[#dad9e0] flex gap-10 items-center w-full">
       <div className="flex items-center shrink-0">
         <button
           onClick={onBack}
-          className="flex items-center justify-center px-4 py-3 rounded-[10px] size-12 hover:bg-gray-50 transition-colors"
+          className="flex items-center justify-center px-4 rounded-[10px] size-12 hover:bg-gray-50 transition-colors"
           aria-label="Go back"
         >
           <svg className="size-7" viewBox="0 0 28 28" fill="none">

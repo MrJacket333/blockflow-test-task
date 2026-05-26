@@ -27,20 +27,20 @@ export default function PollingJobButton({ disabled, onProgress, onStatusChange 
 
           if (data.status === 'done') {
             onProgress(100);
-            onStatusChange({ running: false, isPolling: false });
+            onStatusChange({ running: false, isPolling: true });
             if (pollIntervalRef.current) {
               clearInterval(pollIntervalRef.current);
               pollIntervalRef.current = null;
             }
           } else if (data.status === 'failed') {
-            onStatusChange({ running: false, isPolling: false });
+            onStatusChange({ running: false, isPolling: true });
             if (pollIntervalRef.current) {
               clearInterval(pollIntervalRef.current);
               pollIntervalRef.current = null;
             }
           }
         } catch {
-          onStatusChange({ running: false, isPolling: false });
+          onStatusChange({ running: false, isPolling: true });
           if (pollIntervalRef.current) {
             clearInterval(pollIntervalRef.current);
             pollIntervalRef.current = null;
@@ -48,7 +48,7 @@ export default function PollingJobButton({ disabled, onProgress, onStatusChange 
         }
       }, 1000);
     } catch {
-      onStatusChange({ running: false, isPolling: false });
+      onStatusChange({ running: false, isPolling: true });
     }
   }, [onProgress, onStatusChange]);
 
@@ -61,6 +61,6 @@ export default function PollingJobButton({ disabled, onProgress, onStatusChange 
   }, []);
 
   return (
-    <Button onClick={runPollingJob} className="py-4 w-[220px]" disabled={disabled}>Run polling job</Button>
+    <Button onClick={runPollingJob} className="py-4 w-[250px]" disabled={disabled}>Run polling job</Button>
   );
 }

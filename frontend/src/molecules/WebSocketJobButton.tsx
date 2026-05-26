@@ -64,7 +64,7 @@ export default function WebSocketJobButton({ disabled, onProgress, onStatusChang
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <Button onClick={runWebSocketJob} className="py-4 w-[220px]" disabled={disabled}>Run WebSocket job</Button>
+      <Button onClick={runWebSocketJob} className="py-4 w-[250px]" disabled={disabled}>Run WebSocket job</Button>
       {error && <p className="text-red-500 text-sm">Connection failed: {error}</p>}
     </div>
   );
