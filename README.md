@@ -26,6 +26,10 @@ A fullstack job processing demo with real-time progress updates via WebSocket an
 ## Class diagram
 -- Class diagram can be found via this link: [https://drive.google.com/file/d/19fAF6cloGuwMc4wH4o3k7zPKMFOdwS93/view?usp=drive_link](https://drive.google.com/file/d/19fAF6cloGuwMc4wH4o3k7zPKMFOdwS93/view?usp=drive_link)
 
+## How to add new step
+1. Create new class, preferrably in "jobs-queue/handler" folder, and implement `JobsQueueHandler` interface
+2. In `jobs-queue.module.ts`, find provider with `PIPELINE_INJECTION_TOKEN`, add instance of your class to `useFactory` method and include it in returning array. Execution order can be managed by the position of imported providers in returned array.
+
 ### WebSocket Job Flow
 1. User navigates to `/jobs` and clicks **"Run WebSocket job"**.
 2. Frontend opens a Socket.IO connection and emits `initJob`.
