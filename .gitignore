@@ -69,4 +69,4 @@ dist/
 build/
 
 #Firebase config
-.firebase/
+**/.firebase/
