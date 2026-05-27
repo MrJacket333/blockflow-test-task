@@ -22,6 +22,9 @@ A fullstack job processing demo with real-time progress updates via WebSocket an
 3. On job processing page, user is able to run websocket job processing or polling job processing. With websocket processing, displayed process spinner shows process completion in percents, and in polling processing, progress spinner is running in circle until job status is 'done' or 'failed'. Once websocket job processing is complete, loading spinner is displayed with fully filled circle and `100%` value in the middle. Once polling job processing is complete, loading spinner is displayed with fully filled circle without any label or value.
 4. Click on 'Reset' button returns user to the homepage and closes polling timers and websocket connections if there are running ones.
 
+## Class diagram
+-- Class diagram can be found via this link: [https://drive.google.com/file/d/19fAF6cloGuwMc4wH4o3k7zPKMFOdwS93/view?usp=drive_link](https://drive.google.com/file/d/19fAF6cloGuwMc4wH4o3k7zPKMFOdwS93/view?usp=drive_link)
+
 ### WebSocket Job Flow
 1. User navigates to `/jobs` and clicks **"Run WebSocket job"**.
 2. Frontend opens a Socket.IO connection and emits `initJob`.
