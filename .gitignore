@@ -67,3 +67,6 @@ public/
 
 dist/
 build/
+
+#Firebase config
+.firebase/
