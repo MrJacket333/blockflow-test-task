@@ -24,9 +24,9 @@ A fullstack job processing demo with real-time progress updates via WebSocket an
 4. Click on 'Reset' button returns user to the homepage and closes polling timers and websocket connections if there are running ones.
 
 ## Class diagram
--- Class diagram can be found via this link: [https://drive.google.com/file/d/19fAF6cloGuwMc4wH4o3k7zPKMFOdwS93/view?usp=drive_link](https://drive.google.com/file/d/19fAF6cloGuwMc4wH4o3k7zPKMFOdwS93/view?usp=drive_link)
+Class diagram can be found via this link: [https://drive.google.com/file/d/19fAF6cloGuwMc4wH4o3k7zPKMFOdwS93/view?usp=drive_link](https://drive.google.com/file/d/19fAF6cloGuwMc4wH4o3k7zPKMFOdwS93/view?usp=drive_link)
 
-## How to add new step
+## How to add new job processing step
 1. Create new class, preferrably in "jobs-queue/handler" folder, and implement `JobsQueueHandler` interface
 2. In `jobs-queue.module.ts`, find provider with `PIPELINE_INJECTION_TOKEN`, add instance of your class to `useFactory` method and include it in returning array. Execution order can be managed by the position of imported providers in returned array.
 
