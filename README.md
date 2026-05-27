@@ -13,10 +13,11 @@ A fullstack job processing demo with real-time progress updates via WebSocket an
 - **Frontend: ** [https://firebase.google.com/](https://firebase.google.com/)
 - **Database: ** [https://neon.com/](https://neon.com/)
 - **Redis: ** [https://redis.io/](https://redis.io/)
+- 
+- **NOTE** - because of free tiers, backend might be in a sleep state at the beginning of testing. If you experience timeout errors during websocket connecting or polling processes, check backend URL for its state: https://blockflow-test-task.onrender.com. There is no default view though, so you should see something like this: `{"message":"Cannot GET /","error":"Not Found","statusCode":404}`
 
-## User Interaction Scenarios
 
-### UX
+## User Experience scenarios
 1. On main wish page, user selects main wish from list of wishes. Click on the wish opens next page (weight input)
 2. On weight input page, user should enter valid value of weight. He can switch between `kg` and `lbs` values. After entering weight and click on 'Continue' button, job processing page is opened
 3. On job processing page, user is able to run websocket job processing or polling job processing. With websocket processing, displayed process spinner shows process completion in percents, and in polling processing, progress spinner is running in circle until job status is 'done' or 'failed'. Once websocket job processing is complete, loading spinner is displayed with fully filled circle and `100%` value in the middle. Once polling job processing is complete, loading spinner is displayed with fully filled circle without any label or value.
