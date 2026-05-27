@@ -20,6 +20,7 @@ A fullstack job processing demo with real-time progress updates via WebSocket an
 1. On main wish page, user selects main wish from list of wishes. Click on the wish opens next page (weight input)
 2. On weight input page, user should enter valid value of weight. He can switch between `kg` and `lbs` values. After entering weight and click on 'Continue' button, job processing page is opened
 3. On job processing page, user is able to run websocket job processing or polling job processing. With websocket processing, displayed process spinner shows process completion in percents, and in polling processing, progress spinner is running in circle until job status is 'done' or 'failed'. Once websocket job processing is complete, loading spinner is displayed with fully filled circle and `100%` value in the middle. Once polling job processing is complete, loading spinner is displayed with fully filled circle without any label or value.
+4. Click on 'Reset' button returns user to the homepage and closes polling timers and websocket connections if there are running ones.
 
 ### WebSocket Job Flow
 1. User navigates to `/jobs` and clicks **"Run WebSocket job"**.
